@@ -1,0 +1,92 @@
+var zaposleni = {
+    tim1:[
+        {
+            ime: "Pera",
+            prezime: "Peric",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "2",
+            uloga: "frontEnd"
+        },
+        {
+            ime: "Djuro",
+            prezime: "Mitic",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "0",
+            uloga: "backEnd",
+        },
+        {
+            ime: "Misa",
+            prezime: "Misic",
+            ugovor: "Odredjeno",
+            brojPreostalihDana: "0",
+            uloga: "marketing",
+        },
+    ],
+    tim2:[
+        {
+            ime: "Pera",
+            prezime: "Peric",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "2",
+            uloga: "frontEnd"
+        },
+        {
+            ime: "Djuro",
+            prezime: "Mitic",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "0",
+            uloga: "backEnd",
+        },
+        {
+            ime: "Misa",
+            prezime: "Misic",
+            ugovor: "Odredjeno",
+            brojPreostalihDana: "0",
+            uloga: "marketing",
+        },
+    ],
+    tim3:[
+        {
+            ime: "Pera",
+            prezime: "Peric",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "2",
+            uloga: "frontEnd"
+        },
+        {
+            ime: "Djuro",
+            prezime: "Mitic",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "0",
+            uloga: "backEnd",
+        },
+        {
+            ime: "Misa",
+            prezime: "Misic",
+            ugovor: "Odredjeno",
+            brojPreostalihDana: "0",
+            uloga: "marketing",
+        },
+    ],
+};
+
+let odmorContainer = document.getElementById("odmor-container");
+
+let form = document.createElement('div');
+form.setAttribute('id', 'odmori-forma');
+odmorContainer.appendChild(form);
+
+praviPoljaZaUnos("ime", "imePolje");
+praviPoljaZaUnos("prezime", "prezimePolje");
+
+function praviPoljaZaUnos(nazivNaslova, nazivPolja){
+    let naziv = `${nazivNaslova}`;
+    nazivNaslova = document.createElement('label');
+    nazivNaslova.innerText = `Vase ${naziv}`;
+
+    nazivPolja = document.createElement('input');
+    nazivPolja.setAttribute('type', 'text');
+
+    form.appendChild(nazivNaslova);
+    form.appendChild(nazivPolja);
+}
