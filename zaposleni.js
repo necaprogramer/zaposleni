@@ -20,7 +20,7 @@ var zaposleni = {
             ugovor: "Odredjeno",
             brojPreostalihDana: "0",
             uloga: "marketing",
-        },
+        }
     ],
     tim2:[
         {
@@ -43,7 +43,7 @@ var zaposleni = {
             ugovor: "Odredjeno",
             brojPreostalihDana: "0",
             uloga: "marketing",
-        },
+        }
     ],
     tim3:[
         {
@@ -66,8 +66,8 @@ var zaposleni = {
             ugovor: "Odredjeno",
             brojPreostalihDana: "0",
             uloga: "marketing",
-        },
-    ],
+        }
+    ]
 };
 
 let odmorContainer = document.getElementById("odmor-container");
@@ -75,10 +75,6 @@ let odmorContainer = document.getElementById("odmor-container");
 let form = document.createElement('div');
 form.setAttribute('id', 'odmori-forma');
 odmorContainer.appendChild(form);
-
-for (let tim in zaposleni){
-    console.log(`${tim}`);
-}
 
 let odabirTima = document.createElement('select');
 form.appendChild(odabirTima);
@@ -89,6 +85,26 @@ for(let tim in zaposleni){
     timovi.text = tim;
     odabirTima.appendChild(timovi);
 }
+
+let odabirImena = document.createElement('select');
+form.appendChild(odabirImena);
+
+let odabirPrezimena = document.createElement('select');
+form.appendChild(odabirPrezimena);
+
+odabirTima.addEventListener('change', () => {
+    zaposleni[odabirTima.value].forEach(zaposlen => {
+        let imena = document.createElement('option');
+        let prezimena = document.createElement('option');
+        imena.value = zaposlen.ime;
+        imena.text = zaposlen.ime;
+        prezimena.value = zaposlen.prezime;
+        prezimena.text = zaposlen.prezime;
+
+        odabirImena.appendChild(imena);
+        odabirPrezimena.appendChild(prezimena);
+    });
+});
 
 /*
 praviPoljaZaUnos("ime", "imePolje");
