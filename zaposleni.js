@@ -133,8 +133,8 @@ proveraDatuma.addEventListener('click', () => {
     zaposleni[odabirTima.value].forEach(zaposlen => {
         if(odabirImenaPrezimena.value == zaposlen.imePrezime){
             if(zaposlen.ugovor == "Neodredjeno"){
-                if(mesecOd + 1 < mesecDo){
-                    alert("Imate 20 dana!");
+                if(((danDo + ((mesecDo - 1) * 30)) - (danOd + ((mesecOd - 1) * 30))) > 20){
+                    alert("Imate 20 dana odmora!");
                 }
             }
         }
@@ -154,4 +154,8 @@ function potvrdiIspravnostDatuma(dan, mesec, godina){
     if(godina < limitGodine || godina > limitGodine || mesec < 0 || mesec > limitMeseci || dan > limitDana){
         alert(`Datum nije ispravno unesen!`);
     }
+}
+
+function prikaziUpozorenje(){
+    alert("Imate 20 dana odmora!");
 }
