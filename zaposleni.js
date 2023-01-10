@@ -76,6 +76,21 @@ let form = document.createElement('div');
 form.setAttribute('id', 'odmori-forma');
 odmorContainer.appendChild(form);
 
+for (let tim in zaposleni){
+    console.log(`${tim}`);
+}
+
+let odabirTima = document.createElement('select');
+form.appendChild(odabirTima);
+
+for(let tim in zaposleni){
+    let timovi = document.createElement('option');
+    timovi.value = tim;
+    timovi.text = tim;
+    odabirTima.appendChild(timovi);
+}
+
+/*
 praviPoljaZaUnos("ime", "imePolje");
 praviPoljaZaUnos("prezime", "prezimePolje");
 
@@ -90,3 +105,4 @@ function praviPoljaZaUnos(nazivNaslova, nazivPolja){
     form.appendChild(nazivNaslova);
     form.appendChild(nazivPolja);
 }
+*/
