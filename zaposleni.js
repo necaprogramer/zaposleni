@@ -69,6 +69,7 @@ form.setAttribute('method', 'post');
 odmorContainer.appendChild(form);
 
 let odabirTima = document.createElement('select');
+odabirTima.setAttribute('id', 'odabir-tima');
 form.appendChild(odabirTima);
 
 for(let tim in zaposleni){
@@ -79,6 +80,7 @@ for(let tim in zaposleni){
 }
 
 let odabirImenaPrezimena = document.createElement('select');
+odabirImenaPrezimena.setAttribute('id', 'ime-prezime');
 form.appendChild(odabirImenaPrezimena);
 
 odabirTima.addEventListener('change', () => {
@@ -105,30 +107,49 @@ let odabirVremenaDo = document.createElement('input');
 odabirVremenaDo.setAttribute('type', 'text');
 form.appendChild(odabirVremenaDo);
 
+let proveraDatuma = document.createElement('button');
+proveraDatuma.innerText = "Proveri dostupnost datuma";
+form.appendChild(proveraDatuma);
+proveraDatuma.addEventListener('click', () => {
+    if(odabirVremenaOd.value == "" && odabirVremenaDo.value == ""){
+        alert("Datum ne sme biti prazan!");
+    }
+
+    // Formatiranje datuma od radi lakse manipulacije
+    let deloviDatumaOd = odabirVremenaOd.value.split("/");
+    let danOd = parseInt(deloviDatumaOd[0]);
+    let mesecOd = parseInt(deloviDatumaOd[1]);
+    let godinaOd = parseInt(deloviDatumaOd[2]);
+    
+    // Formatiranje datuma do radi lakse manipulacije
+    let deloviDatumaDo = odabirVremenaDo.value.split("/");
+    let danDo = parseInt(deloviDatumaDo[0]);
+    let mesecDo = parseInt(deloviDatumaDo[1]);
+    let godinaDo = parseInt(deloviDatumaDo[2]);
+
+    potvrdiIspravnostDatuma(danOd, mesecOd, godinaOd);
+    potvrdiIspravnostDatuma(danDo, mesecDo, godinaDo);
+
+    zaposleni[odabirTima.value].forEach(zaposlen => {
+        if(odabirImenaPrezimena.value == zaposlen.imePrezime){
+            if(zaposlen.ugovor == "Neodredjeno"){
+                if(mesecOd + 1 < mesecDo){
+                    alert("Imate 20 dana!");
+                }
+            }
+        }
+    });
+});
 
 let submitButton = document.createElement('button');
 submitButton.setAttribute('type', 'submit');
 submitButton.innerText = "Posalji zahtev";
 form.appendChild(submitButton);
 
-submitButton.addEventListener('click', () => {
-    validateDate(odabirVremenaOd.value);
-    validateDate(odabirVremenaDo.value);
-});
-
-function validateDate(date){
-    if(date == 0){
-        alert("Datum nije unesen!");
-    }
-
-    let limitGodine = 23;
-    let limitMeseci = 12;
+function potvrdiIspravnostDatuma(dan, mesec, godina){
     let limitDana = 31;
-
-    let deloviDatuma = date.split("/");
-    let dan = parseInt(deloviDatuma[0], 10);
-    let mesec = parseInt(deloviDatuma[1], 10);
-    let godina = parseInt(deloviDatuma[2], 10);
+    let limitMeseci = 12;
+    let limitGodine = 23;
 
     if(godina < limitGodine || godina > limitGodine || mesec < 0 || mesec > limitMeseci || dan > limitDana){
         alert(`Datum nije ispravno unesen!`);
