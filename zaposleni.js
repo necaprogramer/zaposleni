@@ -90,19 +90,16 @@ odabirTima.addEventListener('change', () => {
     });
 });
 
-/*
-praviPoljaZaUnos("ime", "imePolje");
-praviPoljaZaUnos("prezime", "prezimePolje");
+let naslovVremeOd = document.createElement('label');
+naslovVremeOd.innerText = "Pocetak odmora";
+form.appendChild(naslovVremeOd);
+let odabirVremenaOd = document.createElement('input');
+odabirVremenaOd.setAttribute('type', 'text');
+form.appendChild(odabirVremenaOd);
 
-function praviPoljaZaUnos(nazivNaslova, nazivPolja){
-    let naziv = `${nazivNaslova}`;
-    nazivNaslova = document.createElement('label');
-    nazivNaslova.innerText = `Vase ${naziv}`;
-
-    nazivPolja = document.createElement('input');
-    nazivPolja.setAttribute('type', 'text');
-
-    form.appendChild(nazivNaslova);
-    form.appendChild(nazivPolja);
-}
-*/
+let naslovVremeDo = document.createElement('label');
+naslovVremeDo.innerText = "Kraj odmora";
+form.appendChild(naslovVremeDo);
+let odabirVremenaDo = document.createElement('input');
+odabirVremenaDo.setAttribute('type', 'text');
+form.appendChild(odabirVremenaDo);
