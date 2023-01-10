@@ -1,45 +1,39 @@
 var zaposleni = {
     tim1:[
         {
-            ime: "Pera",
-            prezime: "Peric",
-            ugovor: "Neodredjeno",
-            brojPreostalihDana: "2",
+            imePrezime: "Pera Peric",
+            ugovor: "Odredjeno",
+            brojPreostalihDana: "0",
             uloga: "frontEnd"
         },
         {
-            ime: "Djuro",
-            prezime: "Mitic",
+            imePrezime: "Helena Mitanovic",
             ugovor: "Neodredjeno",
             brojPreostalihDana: "0",
             uloga: "backEnd",
         },
         {
-            ime: "Misa",
-            prezime: "Misic",
-            ugovor: "Odredjeno",
-            brojPreostalihDana: "0",
+            imePrezime: "Misa Misic",
+            ugovor: "Neodredjeno",
+            brojPreostalihDana: "2",
             uloga: "marketing",
         }
     ],
     tim2:[
         {
-            ime: "Pera",
-            prezime: "Peric",
+            imePrezime: "Djuro Nacic",
             ugovor: "Neodredjeno",
             brojPreostalihDana: "2",
             uloga: "frontEnd"
         },
         {
-            ime: "Djuro",
-            prezime: "Mitic",
+            imePrezime: "Mika Pekanovic",
             ugovor: "Neodredjeno",
             brojPreostalihDana: "0",
             uloga: "backEnd",
         },
         {
-            ime: "Misa",
-            prezime: "Misic",
+            imePrezime: "Sloba Ropcevic",
             ugovor: "Odredjeno",
             brojPreostalihDana: "0",
             uloga: "marketing",
@@ -47,27 +41,24 @@ var zaposleni = {
     ],
     tim3:[
         {
-            ime: "Pera",
-            prezime: "Peric",
+            imePrezime: "Anastasija Hljebljanovic",
             ugovor: "Neodredjeno",
             brojPreostalihDana: "2",
             uloga: "frontEnd"
         },
         {
-            ime: "Djuro",
-            prezime: "Mitic",
-            ugovor: "Neodredjeno",
+            imePrezime: "Mica Jaksic",
+            ugovor: "Odredjeno",
             brojPreostalihDana: "0",
             uloga: "backEnd",
         },
         {
-            ime: "Misa",
-            prezime: "Misic",
-            ugovor: "Odredjeno",
+            imePrezime: "Alkibijad Arnautovic",
+            ugovor: "Neodredjeno",
             brojPreostalihDana: "0",
             uloga: "marketing",
         }
-    ]
+    ],
 };
 
 let odmorContainer = document.getElementById("odmor-container");
@@ -86,23 +77,16 @@ for(let tim in zaposleni){
     odabirTima.appendChild(timovi);
 }
 
-let odabirImena = document.createElement('select');
-form.appendChild(odabirImena);
-
-let odabirPrezimena = document.createElement('select');
-form.appendChild(odabirPrezimena);
+let odabirImenaPrezimena = document.createElement('select');
+form.appendChild(odabirImenaPrezimena);
 
 odabirTima.addEventListener('change', () => {
     zaposleni[odabirTima.value].forEach(zaposlen => {
-        let imena = document.createElement('option');
-        let prezimena = document.createElement('option');
-        imena.value = zaposlen.ime;
-        imena.text = zaposlen.ime;
-        prezimena.value = zaposlen.prezime;
-        prezimena.text = zaposlen.prezime;
+        let imenaPrezimena = document.createElement('option');
+        imenaPrezimena.value = zaposlen.imePrezime;
+        imenaPrezimena.text = zaposlen.imePrezime;
 
-        odabirImena.appendChild(imena);
-        odabirPrezimena.appendChild(prezimena);
+        odabirImenaPrezimena.appendChild(imenaPrezimena);
     });
 });
 
