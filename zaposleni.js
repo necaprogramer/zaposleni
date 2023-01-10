@@ -110,3 +110,27 @@ let submitButton = document.createElement('button');
 submitButton.setAttribute('type', 'submit');
 submitButton.innerText = "Posalji zahtev";
 form.appendChild(submitButton);
+
+submitButton.addEventListener('click', () => {
+    validateDate(odabirVremenaOd.value);
+    validateDate(odabirVremenaDo.value);
+});
+
+function validateDate(date){
+    if(date == 0){
+        alert("Datum nije unesen!");
+    }
+
+    let limitGodine = 23;
+    let limitMeseci = 12;
+    let limitDana = 31;
+
+    let deloviDatuma = date.split("/");
+    let dan = parseInt(deloviDatuma[0], 10);
+    let mesec = parseInt(deloviDatuma[1], 10);
+    let godina = parseInt(deloviDatuma[2], 10);
+
+    if(godina < limitGodine || godina > limitGodine || mesec < 0 || mesec > limitMeseci || dan > limitDana){
+        alert(`Datum nije ispravno unesen!`);
+    }
+}
