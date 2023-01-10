@@ -65,6 +65,7 @@ let odmorContainer = document.getElementById("odmor-container");
 
 let form = document.createElement('div');
 form.setAttribute('id', 'odmori-forma');
+form.setAttribute('method', 'post');
 odmorContainer.appendChild(form);
 
 let odabirTima = document.createElement('select');
@@ -103,3 +104,9 @@ form.appendChild(naslovVremeDo);
 let odabirVremenaDo = document.createElement('input');
 odabirVremenaDo.setAttribute('type', 'text');
 form.appendChild(odabirVremenaDo);
+
+
+let submitButton = document.createElement('button');
+submitButton.setAttribute('type', 'submit');
+submitButton.innerText = "Posalji zahtev";
+form.appendChild(submitButton);
