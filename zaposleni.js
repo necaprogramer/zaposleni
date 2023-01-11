@@ -132,9 +132,23 @@ proveraDatuma.addEventListener('click', () => {
 
     zaposleni[odabirTima.value].forEach(zaposlen => {
         if(odabirImenaPrezimena.value == zaposlen.imePrezime){
+            // Izracunavanje broja dana u godini kako bi osigurali da logika po kojoj se uredjuje period odmora za zaposlene bude funkcionalna
+            let ukupanBrojDanaOd = izracunajBrojDanaUGodini(danOd, mesecOd);
+            let ukupanBrojDanaDo = izracunajBrojDanaUGodini(danDo, mesecDo);
+            if((ukupanBrojDanaDo - ukupanBrojDanaOd) < 1){
+                alert("Period odmora mora biti minimalno jedan dan u buducnosti");
+            }
+            let ukupanBrojDanaOdmora = 0;
             if(zaposlen.ugovor == "Neodredjeno"){
-                if(((danDo + ((mesecDo - 1) * 30)) - (danOd + ((mesecOd - 1) * 30))) > 20){
-                    alert("Imate 20 dana odmora!");
+                ukupanBrojDanaOdmora = 20 + parseInt(zaposlen.brojPreostalihDana);
+                
+                if(ukupanBrojDanaDo - ukupanBrojDanaOd > ukupanBrojDanaOdmora){
+                    alert(`Imate ${ukupanBrojDanaOdmora} dana odmora!`);
+                }
+            }else if(zaposlen.ugovor == "Odredjeno"){
+                ukupanBrojDanaOdmora = 20/12 * mesecOd;
+                if((ukupanBrojDanaDo - ukupanBrojDanaOd) > ukupanBrojDanaOdmora){
+                    alert(`Imate ${ukupanBrojDanaOdmora} dana odmora do tog momenta u mesecu!`);
                 }
             }
         }
@@ -156,6 +170,11 @@ function potvrdiIspravnostDatuma(dan, mesec, godina){
     }
 }
 
-function prikaziUpozorenje(){
-    alert("Imate 20 dana odmora!");
+function izracunajBrojDanaUGodini(dani, mesec){
+    let meseci = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let ukupanBrojDana = dani;
+    for(let i = 0; i < mesec - 1; i++){
+        ukupanBrojDana += meseci[i];
+    }
+    return ukupanBrojDana;
 }
