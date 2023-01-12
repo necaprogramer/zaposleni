@@ -71,14 +71,15 @@ var zaposleni = {
     ],
 };
 
-/* TEST */
-const danas = new Date();
-const danas1 = new Intl.DateTimeFormat("sr", {
-    dateStyle: "short",
-});
-console.log(danas - danas);
-let nekiDrugiDan = new Date("July 21, 2024 00:00:00");
-console.log((nekiDrugiDan - danas));
+const DANAS = new Date();
+
+let trenutniDan = DANAS.getDate();
+let trenutniMesec = DANAS.getMonth();
+let trenutnaGodina = DANAS.getFullYear();
+
+let datum = `${trenutnaGodina}-0${trenutniMesec + 1}-${trenutniDan}`; // 0 ispred meseca i +1 jer getMonth racuna mesece od nule
+
+const JEDANDAN = 1000 * 60 * 60 * 24;
 
 let odmorContainer = document.getElementById("odmor-container");
 
@@ -130,9 +131,8 @@ let proveraDatuma = document.createElement('button');
 proveraDatuma.innerText = "Proveri dostupnost datuma";
 form.appendChild(proveraDatuma);
 proveraDatuma.addEventListener('click', () => {
-    let jedanDan = 1000 * 60 * 60 * 24;
-    // Racunanje broj odabranih dana radi provere logike
-    let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value)))/jedanDan);
+    // Racunanje broja odabranih dana radi provere logike
+    let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value)))/JEDANDAN);
     if(brojOdabranihDana < 0){
         alert("Morate odabrati makar jedan dan za odmor!");
     }
@@ -141,9 +141,13 @@ proveraDatuma.addEventListener('click', () => {
     let mesecOd = parseInt(deloviDatuma[1]);
     let ulogaZaposlenogZaZahtev;
     zaposleni[odabirTima.value].forEach(zaposlen => {
+        console.log(zaposlen);
         if(odabirImenaPrezimena.value == zaposlen.imePrezime){
             ulogaZaposlenogZaZahtev = zaposlen.uloga;
             let ukupanBrojDanaOdmora = 0;
+            if(odabirVremenaOd.value < datum || odabirVremenaDo.value < datum){
+                alert("Ne mozete zahtevati odmor u proslosti!");
+            }
             if(zaposlen.ugovor == "Neodredjeno"){
                 if(mesecOd != 7){
                     ukupanBrojDanaOdmora = 20 + parseInt(zaposlen.brojPreostalihDanaOdmora);
@@ -157,9 +161,13 @@ proveraDatuma.addEventListener('click', () => {
                 checkPeriod(brojOdabranihDana, ukupanBrojDanaOdmora);
             }
         }
-    });
-    zaposleni[odabirTima.value].forEach(zaposlen => {
-
+        if(ulogaZaposlenogZaZahtev == zaposlen.uloga){
+            if(zaposlen.odmor){
+                if(zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value){
+                    alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
+                }
+            }
+        }
     });
 });
 
