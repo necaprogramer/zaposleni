@@ -3,19 +3,19 @@ var zaposleni = {
         {
             imePrezime: "Pera Peric",
             ugovor: "Odredjeno",
-            brojPreostalihDana: "0",
-            uloga: "frontEnd"
+            brojPreostalihDanaOdmora: "0",
+            uloga: "frontEnd",
         },
         {
             imePrezime: "Helena Mitanovic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "0",
+            brojPreostalihDanaOdmora: "0",
             uloga: "backEnd",
         },
         {
             imePrezime: "Misa Misic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "2",
+            brojPreostalihDanaOdmora: "2",
             uloga: "marketing",
         }
     ],
@@ -23,19 +23,29 @@ var zaposleni = {
         {
             imePrezime: "Djuro Nacic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "2",
+            brojPreostalihDanaOdmora: "2",
             uloga: "frontEnd"
         },
         {
             imePrezime: "Mika Pekanovic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "0",
+            brojPreostalihDanaOdmora: "0",
             uloga: "backEnd",
+        },
+        {
+            imePrezime: "Rodoslav Karic",
+            ugovor: "Neodredjeno",
+            brojPreostalihDanaOdmora: "0",
+            uloga: "backEnd",
+            odmor:{
+                od: "2023-04-05",
+                do: "2023-04-25"
+            }
         },
         {
             imePrezime: "Sloba Ropcevic",
             ugovor: "Odredjeno",
-            brojPreostalihDana: "0",
+            brojPreostalihDanaOdmora: "0",
             uloga: "marketing",
         }
     ],
@@ -43,23 +53,32 @@ var zaposleni = {
         {
             imePrezime: "Anastasija Hljebljanovic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "2",
+            brojPreostalihDanaOdmora: "2",
             uloga: "frontEnd"
         },
         {
             imePrezime: "Mica Jaksic",
             ugovor: "Odredjeno",
-            brojPreostalihDana: "0",
+            brojPreostalihDanaOdmora: "0",
             uloga: "backEnd",
         },
         {
             imePrezime: "Alkibijad Arnautovic",
             ugovor: "Neodredjeno",
-            brojPreostalihDana: "0",
+            brojPreostalihDanaOdmora: "0",
             uloga: "marketing",
         }
     ],
 };
+
+/* TEST */
+const danas = new Date();
+const danas1 = new Intl.DateTimeFormat("sr", {
+    dateStyle: "short",
+});
+console.log(danas - danas);
+let nekiDrugiDan = new Date("July 21, 2024 00:00:00");
+console.log((nekiDrugiDan - danas));
 
 let odmorContainer = document.getElementById("odmor-container");
 
@@ -97,61 +116,50 @@ let naslovVremeOd = document.createElement('label');
 naslovVremeOd.innerText = "Pocetak odmora";
 form.appendChild(naslovVremeOd);
 let odabirVremenaOd = document.createElement('input');
-odabirVremenaOd.setAttribute('type', 'text');
+odabirVremenaOd.setAttribute('type', 'date');
 form.appendChild(odabirVremenaOd);
 
 let naslovVremeDo = document.createElement('label');
 naslovVremeDo.innerText = "Kraj odmora";
 form.appendChild(naslovVremeDo);
 let odabirVremenaDo = document.createElement('input');
-odabirVremenaDo.setAttribute('type', 'text');
+odabirVremenaDo.setAttribute('type', 'date');
 form.appendChild(odabirVremenaDo);
 
 let proveraDatuma = document.createElement('button');
 proveraDatuma.innerText = "Proveri dostupnost datuma";
 form.appendChild(proveraDatuma);
 proveraDatuma.addEventListener('click', () => {
-    if(odabirVremenaOd.value == "" && odabirVremenaDo.value == ""){
-        alert("Datum ne sme biti prazan!");
+    let jedanDan = 1000 * 60 * 60 * 24;
+    // Racunanje broj odabranih dana radi provere logike
+    let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value)))/jedanDan);
+    if(brojOdabranihDana < 0){
+        alert("Morate odabrati makar jedan dan za odmor!");
     }
-
-    // Formatiranje datuma od radi lakse manipulacije
-    let deloviDatumaOd = odabirVremenaOd.value.split("/");
-    let danOd = parseInt(deloviDatumaOd[0]);
-    let mesecOd = parseInt(deloviDatumaOd[1]);
-    let godinaOd = parseInt(deloviDatumaOd[2]);
-    
-    // Formatiranje datuma do radi lakse manipulacije
-    let deloviDatumaDo = odabirVremenaDo.value.split("/");
-    let danDo = parseInt(deloviDatumaDo[0]);
-    let mesecDo = parseInt(deloviDatumaDo[1]);
-    let godinaDo = parseInt(deloviDatumaDo[2]);
-
-    potvrdiIspravnostDatuma(danOd, mesecOd, godinaOd);
-    potvrdiIspravnostDatuma(danDo, mesecDo, godinaDo);
-
+    // Formatiranje datuma od radi lakse provere logike
+    let deloviDatuma = odabirVremenaOd.value.split("-");
+    let mesecOd = parseInt(deloviDatuma[1]);
+    let ulogaZaposlenogZaZahtev;
     zaposleni[odabirTima.value].forEach(zaposlen => {
         if(odabirImenaPrezimena.value == zaposlen.imePrezime){
-            // Izracunavanje broja dana u godini kako bi osigurali da logika po kojoj se uredjuje period odmora za zaposlene bude funkcionalna
-            let ukupanBrojDanaOd = izracunajBrojDanaUGodini(danOd, mesecOd);
-            let ukupanBrojDanaDo = izracunajBrojDanaUGodini(danDo, mesecDo);
-            if((ukupanBrojDanaDo - ukupanBrojDanaOd) < 1){
-                alert("Period odmora mora biti minimalno jedan dan u buducnosti");
-            }
+            ulogaZaposlenogZaZahtev = zaposlen.uloga;
             let ukupanBrojDanaOdmora = 0;
             if(zaposlen.ugovor == "Neodredjeno"){
-                ukupanBrojDanaOdmora = 20 + parseInt(zaposlen.brojPreostalihDana);
-                
-                if(ukupanBrojDanaDo - ukupanBrojDanaOd > ukupanBrojDanaOdmora){
-                    alert(`Imate ${ukupanBrojDanaOdmora} dana odmora!`);
+                if(mesecOd != 7){
+                    ukupanBrojDanaOdmora = 20 + parseInt(zaposlen.brojPreostalihDanaOdmora);
+                    checkPeriod(brojOdabranihDana, ukupanBrojDanaOdmora);
+                }else{
+                    ukupanBrojDanaOdmora = 20;
+                    checkPeriod(brojOdabranihDana, ukupanBrojDanaOdmora);
                 }
             }else if(zaposlen.ugovor == "Odredjeno"){
                 ukupanBrojDanaOdmora = 20/12 * mesecOd;
-                if((ukupanBrojDanaDo - ukupanBrojDanaOd) > ukupanBrojDanaOdmora){
-                    alert(`Imate ${ukupanBrojDanaOdmora} dana odmora do tog momenta u mesecu!`);
-                }
+                checkPeriod(brojOdabranihDana, ukupanBrojDanaOdmora);
             }
         }
+    });
+    zaposleni[odabirTima.value].forEach(zaposlen => {
+
     });
 });
 
@@ -177,4 +185,10 @@ function izracunajBrojDanaUGodini(dani, mesec){
         ukupanBrojDana += meseci[i];
     }
     return ukupanBrojDana;
+}
+
+function checkPeriod(dani, maksDana){
+    if(dani > maksDana){
+        alert(`Imate ${maksDana} dana odmora!`);
+    }
 }
