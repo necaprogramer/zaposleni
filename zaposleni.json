@@ -1,0 +1,72 @@
+{
+    "tim1":[
+        {
+            "imePrezime": "Pera Peric",
+            "ugovor": "Odredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "frontEnd"
+        },
+        {
+            "imePrezime": "Helena Mitanovic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "backEnd"
+        },
+        {
+            "imePrezime": "Misa Misic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "2",
+            "uloga": "marketing"
+        }
+    ],
+    "tim2":[
+        {
+            "imePrezime": "Djuro Nacic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "2",
+            "uloga": "frontEnd"
+        },
+        {
+            "imePrezime": "Mika Pekanovic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "backEnd"
+        },
+        {
+            "imePrezime": "Rodoslav Karic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "backEnd",
+            "odmor":{
+                "od": "2023-04-05",
+                "do": "2023-04-25"
+            }
+        },
+        {
+            "imePrezime": "Sloba Ropcevic",
+            "ugovor": "Odredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "marketing"
+        }
+    ],
+    "tim3":[
+        {
+            "imePrezime": "Anastasija Hljebljanovic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "2",
+            "uloga": "frontEnd"
+        },
+        {
+            "imePrezime": "Mica Jaksic",
+            "ugovor": "Odredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "backEnd"
+        },
+        {
+            "imePrezime": "Alkibijad Arnautovic",
+            "ugovor": "Neodredjeno",
+            "brojPreostalihDanaOdmora": "0",
+            "uloga": "marketing"
+        }
+    ]
+}
