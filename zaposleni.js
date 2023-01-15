@@ -1,3 +1,6 @@
+// PROVERI DATUM POTPISA UGOVORA I NA OSNOVU NJEGA RACUNAJ DATUM ZA ZAPOSLENE SA UGOVOROM NA ODREDJENO
+// DATUM DO NE SME DA BUDE U PROSLOSTI U ODNOSU NA DATUM OD
+
 const DANAS = new Date();
 
 const TRENUTNIDAN = DANAS.getDate();
@@ -14,11 +17,22 @@ async function dohvatiZaposlene() {
     const response = await fetch('./zaposleni.json');
     const data = await response.json();
 
+    for(let timovi in data){
+        data[timovi].forEach(zaposlen => { // Data od timova je u square bracket notaciji, jer dot notacija iz nekog razloga nije funkcionisala -> PROVERI OVO
+            if(TRENUTNIMESEC > 6){ // Nepotrebno je pronalaziti zaposlene sa ugovorom na neodredjeno ukoliko trenutni mesec nije nakon 30og Juna
+                if(zaposlen.ugovor == "Neodredjeno"){
+                    zaposlen.brojPreostalihDanaOdmora == 0;
+                }
+            }
+        });
+    };
+
     let odmorContainer = document.getElementById("odmor-container");
 
-    let form = document.createElement('div');
+    let form = document.createElement('form');
     form.setAttribute('id', 'odmori-forma');
-    form.setAttribute('method', 'post');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action', 'zahtev-poslat.php');
     odmorContainer.appendChild(form);
 
     let odabirTima = document.createElement('select');
@@ -34,6 +48,7 @@ async function dohvatiZaposlene() {
 
     let odabirImenaPrezimena = document.createElement('select');
     odabirImenaPrezimena.setAttribute('id', 'ime-prezime');
+    odabirImenaPrezimena.setAttribute('name', 'ime-prezime');
     form.appendChild(odabirImenaPrezimena);
 
     odabirTima.addEventListener('change', () => {
@@ -51,6 +66,7 @@ async function dohvatiZaposlene() {
     form.appendChild(naslovVremeOd);
     let odabirVremenaOd = document.createElement('input');
     odabirVremenaOd.setAttribute('type', 'date');
+    odabirVremenaOd.setAttribute('name', 'vreme-od');
     form.appendChild(odabirVremenaOd);
 
     let naslovVremeDo = document.createElement('label');
@@ -58,12 +74,14 @@ async function dohvatiZaposlene() {
     form.appendChild(naslovVremeDo);
     let odabirVremenaDo = document.createElement('input');
     odabirVremenaDo.setAttribute('type', 'date');
+    odabirVremenaDo.setAttribute('name', 'vreme-do')
     form.appendChild(odabirVremenaDo);
 
     let proveraDatuma = document.createElement('button');
     proveraDatuma.innerText = "Proveri dostupnost datuma";
     form.appendChild(proveraDatuma);
     proveraDatuma.addEventListener('click', () => {
+        
         // Racunanje broja odabranih dana radi provere logike
         let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value))) / JEDANDAN);
         if (brojOdabranihDana < 0) {
@@ -79,6 +97,8 @@ async function dohvatiZaposlene() {
                 let ukupanBrojDanaOdmora = 0;
                 if (odabirVremenaOd.value < DATUM || odabirVremenaDo.value < DATUM) {
                     alert("Ne mozete zahtevati odmor u proslosti!");
+                }else if(odabirVremenaOd.value > odabirVremenaDo.value){
+                    alert("Datum pocetka odmora ne sme biti u proslosti u odnosu na period do");
                 }
                 if (zaposlen.ugovor == "Neodredjeno") {
                     if (mesecOd != 7) {
