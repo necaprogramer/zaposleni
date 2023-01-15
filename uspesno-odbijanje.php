@@ -8,6 +8,7 @@ if (file_exists($filename)) {
     foreach ($zaposleni as $tim => $radnici) {
         foreach ($radnici as $radnik) {
             if ($radnik->imePrezime == $imePrezime) {
+                print "Uspesno ste odbili zahtev " . $radnik->imePrezime;
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
             }

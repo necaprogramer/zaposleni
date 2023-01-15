@@ -12,6 +12,7 @@ if (file_exists($filename)) {
                 $radnik->odmor->do = $radnik->zahtevaniOdmor->do;
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
+                print "Uspesno ste odobrili zahtev " . $radnik->imePrezime . " u periodu od " . $radnik->odmor->od . " do " . $radnik->odmor->do;
             }
         }
     };
