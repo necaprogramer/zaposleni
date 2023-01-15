@@ -8,7 +8,7 @@ async function dohvatiZaposleneSaZahtevima(){
     
     for(let timovi in data){
         data[timovi].forEach(zaposlen => {
-            if(zaposlen.zahtevaniOdmor.od != "" && zaposlen.zahtevaniOdmor.do != ""){
+            while(zaposlen.zahtevaniOdmor.od != "" && zaposlen.zahtevaniOdmor.do != ""){
                 let zahtev = document.createElement('h4');
                 adminPanelContainer.appendChild(zahtev);
 
