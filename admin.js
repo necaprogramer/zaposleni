@@ -41,7 +41,7 @@ function daLiSteSigurni(zaposleni, stranicaZaPotvrdu){
     let neDugme = document.createElement('button');
     daDugme.innerText = "Da";
     neDugme.innerText = "Ne";
-    daDugme.setAttribute('id', 'da-dugme');
+    daDugme.setAttribute('name', 'da-dugme');
     neDugme.setAttribute('id', 'ne-dugme');
 
     let daLiSteSigurniTekst = document.createElement('h3');
