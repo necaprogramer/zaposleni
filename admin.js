@@ -1,3 +1,5 @@
+// PROVERI ZASTO MORA DA SE OBRISE KES KADA SE PODNESE NOVI ZAHTEV ZA ODMOR KAKO BI SE PRIKAZAO
+
 let adminPanelContainer = document.getElementById('container');
 
 dohvatiZaposleneSaZahtevima();
@@ -53,7 +55,7 @@ function daLiSteSigurni(zaposleni, stranicaZaPotvrdu){
     formaZaOdobrenje.appendChild(daDugme);
     adminPanelContainer.appendChild(neDugme);
 
-    /* FUNKCIJE UKOLIKO SE PRITISNU DA/NE DUGME */
+    /* AKCIJE UKOLIKO SE PRITISNU DA/NE DUGME */
     daDugme.setAttribute('action', 'submit');
     daDugme.setAttribute('value', zaposleni);
 

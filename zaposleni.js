@@ -138,15 +138,6 @@ function potvrdiIspravnostDatuma(dan, mesec, godina) {
     }
 }
 
-function izracunajBrojDanaUGodini(dani, mesec) {
-    let meseci = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let ukupanBrojDana = dani;
-    for (let i = 0; i < mesec - 1; i++) {
-        ukupanBrojDana += meseci[i];
-    }
-    return ukupanBrojDana;
-}
-
 function proveriPeriodOdmora(dani, maksDana) {
     if (dani > maksDana) {
         alert(`Imate ${maksDana} dana odmora!`);
