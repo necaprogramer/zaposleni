@@ -8,11 +8,11 @@ async function dohvatiZaposleneSaZahtevima(){
     
     for(let timovi in data){
         data[timovi].forEach(zaposlen => {
-            while(zaposlen.zahtevaniOdmor.od != "" && zaposlen.zahtevaniOdmor.do != ""){
+            if(zaposlen.zahtevaniOdmor['od'] != "" && zaposlen.zahtevaniOdmor['do'] != ""){ // U square bracket notaciji, jer dot notacija je pravila probleme
                 let zahtev = document.createElement('h4');
                 adminPanelContainer.appendChild(zahtev);
 
-                zahtev.innerText = zaposlen.imePrezime + " zahteva odmor u periodu od " + zaposlen.zahtevaniOdmor.od + " do " + zaposlen.zahtevaniOdmor.do;
+                zahtev.innerText = zaposlen.imePrezime + " zahteva odmor u periodu od " + zaposlen.zahtevaniOdmor['od'] + " do " + zaposlen.zahtevaniOdmor['do'];
 
                 let prihvatiDugme = document.createElement('button');
                 prihvatiDugme.innerText = "Odobri";
