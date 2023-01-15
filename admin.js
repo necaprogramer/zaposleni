@@ -53,10 +53,13 @@ function daLiSteSigurni(zaposleni, stranicaZaPotvrdu){
     formaZaOdobrenje.appendChild(daDugme);
     adminPanelContainer.appendChild(neDugme);
 
+    /* FUNKCIJE UKOLIKO SE PRITISNU DA/NE DUGME */
     daDugme.setAttribute('action', 'submit');
     daDugme.setAttribute('value', zaposleni);
+
     neDugme.addEventListener('click', () => {
-        adminPanelContainer.removeChild(daDugme);
+        formaZaOdobrenje.removeChild(daDugme);
+        adminPanelContainer.removeChild(formaZaOdobrenje);
         adminPanelContainer.removeChild(neDugme);
         adminPanelContainer.removeChild(daLiSteSigurniTekst);
     });
