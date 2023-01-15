@@ -128,16 +128,6 @@ async function dohvatiZaposlene() {
     form.appendChild(submitButton);
 }
 
-function potvrdiIspravnostDatuma(dan, mesec, godina) {
-    let limitDana = 31;
-    let limitMeseci = 12;
-    let limitGodine = 23;
-
-    if (godina < limitGodine || godina > limitGodine || mesec < 0 || mesec > limitMeseci || dan > limitDana) {
-        alert(`Datum nije ispravno unesen!`);
-    }
-}
-
 function proveriPeriodOdmora(dani, maksDana) {
     if (dani > maksDana) {
         alert(`Imate ${maksDana} dana odmora!`);
