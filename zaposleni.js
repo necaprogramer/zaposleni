@@ -1,4 +1,6 @@
 // PROVERI DATUM POTPISA UGOVORA I NA OSNOVU NJEGA RACUNAJ DATUM ZA ZAPOSLENE SA UGOVOROM NA ODREDJENO
+// MOZE SE PODNETI SAMO JEDAN ZAHTEV
+// MOZE SE IMATI SAMO JEDAN ODBORENI ODMOR
 
 const DANAS = new Date();
 
@@ -79,8 +81,8 @@ async function dohvatiZaposlene() {
     let proveraDatuma = document.createElement('button');
     proveraDatuma.innerText = "Proveri dostupnost datuma";
     form.appendChild(proveraDatuma);
-    proveraDatuma.addEventListener('click', () => {
-        
+    proveraDatuma.addEventListener('click', (event) => {
+        event.preventDefault();
         // Racunanje broja odabranih dana radi provere logike
         let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value))) / JEDANDAN);
         if (brojOdabranihDana < 0) {
