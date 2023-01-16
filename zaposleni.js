@@ -18,10 +18,10 @@ async function dohvatiZaposlene() {
     const response = await fetch('./zaposleni.json');
     const data = await response.json();
 
-    for(let timovi in data){
-        data[timovi].forEach(zaposlen => { // Data od timova je u square bracket notaciji, jer dot notacija iz nekog razloga nije funkcionisala -> PROVERI OVO
-            if(TRENUTNIMESEC > 6){ // Nepotrebno je pronalaziti zaposlene sa ugovorom na neodredjeno ukoliko trenutni mesec nije nakon 30og Juna
-                if(zaposlen.ugovor == "Neodredjeno"){
+    for (let timovi in data) {
+        data[timovi].forEach(zaposlen => { // data od timova je u square bracket notaciji, jer dot notacija iz nekog razloga nije funkcionisala -> PROVERI OVO
+            if (TRENUTNIMESEC > 6) { // Nepotrebno je pronalaziti zaposlene sa ugovorom na neodredjeno ukoliko trenutni mesec nije nakon 30og Juna
+                if (zaposlen.ugovor == "Neodredjeno") {
                     zaposlen.brojPreostalihDanaOdmora == 0;
                 }
             }
@@ -39,7 +39,7 @@ async function dohvatiZaposlene() {
     let odabirTima = document.createElement('select');
     odabirTima.setAttribute('id', 'odabir-tima');
     form.appendChild(odabirTima);
-    
+
     for (let tim in data) {
         let timovi = document.createElement('option');
         timovi.value = tim;
@@ -78,36 +78,54 @@ async function dohvatiZaposlene() {
     odabirVremenaDo.setAttribute('name', 'vreme-do')
     form.appendChild(odabirVremenaDo);
 
-    let proveraDatuma = document.createElement('button');
-    proveraDatuma.innerText = "Proveri dostupnost datuma";
-    form.appendChild(proveraDatuma);
-    proveraDatuma.addEventListener('click', (event) => {
-        event.preventDefault();
+    let submitButton = document.createElement('button');
+    submitButton.setAttribute('type', 'submit');
+    submitButton.innerText = "Posalji zahtev";
+    form.appendChild(submitButton);
+
+    submitButton.addEventListener('click', (event) => {
         // Racunanje broja odabranih dana radi provere logike
         let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value))) / JEDANDAN);
+        
         if (brojOdabranihDana < 0) {
+            event.preventDefault();
             alert("Morate odabrati makar jedan dan za odmor!");
         }
+
         // Formatiranje datuma od radi lakse provere logike
         let deloviDatuma = odabirVremenaOd.value.split("-");
         let mesecOd = parseInt(deloviDatuma[1]);
+        
         let ulogaZaposlenogZaZahtev;
+
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
+
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = 0;
+
+                // Proveri validnost zahtevanog datuma u odnosu na logiku datuma
                 if (odabirVremenaOd.value < DATUM || odabirVremenaDo.value < DATUM) {
+                    event.preventDefault();
                     alert("Ne mozete zahtevati odmor u proslosti!");
-                }else if(odabirVremenaOd.value > odabirVremenaDo.value){
+                } else if (odabirVremenaOd.value > odabirVremenaDo.value) {
+                    event.preventDefault();
                     alert("Datum pocetka odmora ne sme biti u proslosti u odnosu na period do");
                 }
+
+                // Proveri validnost zahtevanog datuma u odnosu na logiku koja vazi za zaposlene
                 if (zaposlen.ugovor == "Neodredjeno") {
-                    if (mesecOd != 7) {
-                        ukupanBrojDanaOdmora = 20 + parseInt(zaposlen.brojPreostalihDanaOdmora);
-                        proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora);
+                    if (zaposlen.zahtevaniOdmor['od'] != "" || zaposlen.zahtevaniOdmor['do'] == "") {
+                        event.preventDefault()
+                        alert("Vec ste podneli zahtev za odmor. Molimo Vas imajte strpljenja.");
                     } else {
-                        ukupanBrojDanaOdmora = 20;
-                        proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora);
+                        if (mesecOd != 7) {
+                            ukupanBrojDanaOdmora = 19 + parseInt(zaposlen.brojPreostalihDanaOdmora);
+                            proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                        } else {
+                            ukupanBrojDanaOdmora = 19;
+                            proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                        }
                     }
                 } else if (zaposlen.ugovor == "Odredjeno") {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
@@ -117,21 +135,18 @@ async function dohvatiZaposlene() {
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
                 if (zaposlen.odmor) {
                     if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
+                        event.preventDefault();
                         alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
                     }
                 }
             }
         });
     });
-
-    let submitButton = document.createElement('button');
-    submitButton.setAttribute('type', 'submit');
-    submitButton.innerText = "Posalji zahtev";
-    form.appendChild(submitButton);
 }
 
-function proveriPeriodOdmora(dani, maksDana) {
+function proveriPeriodOdmora(dani, maksDana, klik) {
     if (dani > maksDana) {
+        klik.preventDefault();
         alert(`Imate ${maksDana} dana odmora!`);
     }
 }
