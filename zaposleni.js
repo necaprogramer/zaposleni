@@ -1,7 +1,3 @@
-// PROVERI DATUM POTPISA UGOVORA I NA OSNOVU NJEGA RACUNAJ DATUM ZA ZAPOSLENE SA UGOVOROM NA ODREDJENO
-// MOZE SE PODNETI SAMO JEDAN ZAHTEV
-// MOZE SE IMATI SAMO JEDAN ODBORENI ODMOR
-
 const DANAS = new Date();
 
 const TRENUTNIDAN = DANAS.getDate();
@@ -95,7 +91,7 @@ async function dohvatiZaposlene() {
         // Formatiranje datuma od radi lakse provere logike
         let deloviDatuma = odabirVremenaOd.value.split("-");
         let mesecOd = parseInt(deloviDatuma[1]);
-        
+
         let ulogaZaposlenogZaZahtev;
 
         data[odabirTima.value].forEach(zaposlen => {
