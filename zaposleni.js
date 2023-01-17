@@ -14,16 +14,6 @@ async function dohvatiZaposlene() {
     const response = await fetch('./zaposleni.json');
     const data = await response.json();
 
-    for (let timovi in data) {
-        data[timovi].forEach(zaposlen => { // data od timova je u square bracket notaciji, jer dot notacija iz nekog razloga nije funkcionisala -> PROVERI OVO
-            if (TRENUTNIMESEC > 6) { // Nepotrebno je pronalaziti zaposlene sa ugovorom na neodredjeno ukoliko trenutni mesec nije nakon 30og Juna
-                if (zaposlen.ugovor == "Neodredjeno") {
-                    zaposlen.brojPreostalihDanaOdmora == 0;
-                }
-            }
-        });
-    };
-
     let odmorContainer = document.getElementById("odmor-container");
 
     let form = document.createElement('form');
