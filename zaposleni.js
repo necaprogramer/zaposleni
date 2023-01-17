@@ -115,18 +115,20 @@ async function dohvatiZaposlene() {
                         if (zaposlen['odmor']) {
                             zaposlen['odmor'].forEach(periodOdmora => {
                                 if (periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value) {
+                                    event.preventDefault();
                                     alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
                                 } else {
                                     ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - izracunajRazliku(periodOdmora.od, periodOdmora.do);
                                 }
                             });
-                        };
-                        if (mesecOd != 7) {
-                            ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora);
-                            proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
                         } else {
-                            proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
-                        };
+                            if (mesecOd != 7) {
+                                ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora);
+                                proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                            } else {
+                                proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                            };
+                        }
                     };
                 } else if (zaposlen.ugovor == "Odredjeno") {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
@@ -134,10 +136,10 @@ async function dohvatiZaposlene() {
                 };
             }
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
-                for(let timovi in data){
-                    if(odabirTima.value == timovi && odabirImenaPrezimena.value != zaposlen.imePrezime){
-                        if(zaposlen.odmor){
-                            if(zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value){
+                for (let timovi in data) {
+                    if (odabirTima.value == timovi && odabirImenaPrezimena.value != zaposlen.imePrezime) {
+                        if (zaposlen.odmor) {
+                            if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
                                 event.preventDefault();
                                 alert("Nazalost kolega iz istog tima je odbrao odmor u istom vremenskom periodu");
                             };
