@@ -1,6 +1,7 @@
 // PROVERI ODMOR ZAPOSLENIH NA NEODREDJENO I ODREDJENO I ODUZMI UKOLIKO JE DODLJEN ODMOR TE DANE OD ODMORA
 // NAKON STO JE DODLJEN ODMOR PRETHODNI DANI ODMORA SU 0
 // VIKENDI NE SMEJU DA SE RACUNAJU KAO ODMOR
+// DODATI PROVERU DA ZAPOSLENI SAMO IZ ISTOG TIMA I SA ISTIM ULOGAMA NE SMEJU ZAHTEVATI ODMOR U ISTOM VREMENSKOM PERIODU
 
 const DANAS = new Date();
 
@@ -90,7 +91,6 @@ async function dohvatiZaposlene() {
 
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
-                event.preventDefault();
 
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = 19;
@@ -107,7 +107,7 @@ async function dohvatiZaposlene() {
                 // Proveri validnost zahtevanog datuma u odnosu na logiku koja vazi za zaposlene
                 if (zaposlen.ugovor == "Neodredjeno") {
                     // Ukoliko vec postoji zahtev za odmor
-                    if (zaposlen.zahtevaniOdmor['od'] != "" || zaposlen.zahtevaniOdmor['do'] == "") {
+                    if (zaposlen.zahtevaniOdmor['od'] != "" && zaposlen.zahtevaniOdmor['do'] == "") {
                         event.preventDefault()
                         alert("Vec ste podneli zahtev za odmor. Molimo Vas imajte strpljenja.");
                     } else {
@@ -134,6 +134,17 @@ async function dohvatiZaposlene() {
                 };
             }
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
+                for(let timovi in data){
+                    if(odabirTima.value == timovi && odabirImenaPrezimena.value != zaposlen.imePrezime){
+                        if(zaposlen.odmor){
+                            if(zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value){
+                                event.preventDefault();
+                                alert("Nazalost kolega iz istog tima je odbrao odmor u istom vremenskom periodu");
+                            };
+                        };
+                    };
+                };
+                /*
                 if (odabirImenaPrezimena.value != zaposlen.imePrezime) {
                     if (zaposlen.odmor) {
                         if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
@@ -142,6 +153,7 @@ async function dohvatiZaposlene() {
                         };
                     }
                 };
+                */
             };
         });
     });
