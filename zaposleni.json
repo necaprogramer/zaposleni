@@ -6,10 +6,12 @@
             "ugovor": "Odredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "frontEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+                {
+                    "od":"2023-03-02",
+                    "do":"2023-03-10"
+                }
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -21,10 +23,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -36,10 +36,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "marketing",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -53,10 +51,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "frontEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -68,10 +64,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -115,10 +109,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "frontEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -130,10 +122,8 @@
             "ugovor": "Odredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
@@ -145,10 +135,8 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "marketing",
-            "odmor":{
-                "od": "",
-                "do": ""
-            },
+            "odmor":[
+            ],
             "zahtevaniOdmor":{
                 "od": "2023-03-02",
                 "do": "2023-03-10"

@@ -8,11 +8,13 @@ if (file_exists($filename)) {
     foreach ($zaposleni as $tim => $radnici) {
         foreach ($radnici as $radnik) {
             if ($radnik->imePrezime == $imePrezime) {
-                $radnik->odmor->od = $radnik->zahtevaniOdmor->od;
-                $radnik->odmor->do = $radnik->zahtevaniOdmor->do;
+                $periodOdmora = new stdClass;
+                $periodOdmora->od = $radnik->zahtevaniOdmor->od;
+                $periodOdmora->do = $radnik->zahtevaniOdmor->od;
+                array_push($radnik->odmor, $periodOdmora);
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
-                print "Uspesno ste odobrili zahtev " . $radnik->imePrezime . " u periodu od " . $radnik->odmor->od . " do " . $radnik->odmor->do;
+                print "Uspesno ste odobrili zahtev " . $radnik->imePrezime . " u periodu od " . $periodOdmora->od . " do " . $periodOdmora->do;
             }
         }
     };
