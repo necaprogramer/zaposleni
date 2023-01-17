@@ -76,7 +76,7 @@ async function dohvatiZaposlene() {
     submitButton.addEventListener('click', (event) => {
         // Racunanje broja odabranih dana radi provere logike
         let brojOdabranihDana = Math.round(Math.abs((Date.parse(odabirVremenaDo.value) - Date.parse(odabirVremenaOd.value))) / JEDANDAN);
-        
+
         if (brojOdabranihDana < 0) {
             event.preventDefault();
             alert("Morate odabrati makar jedan dan za odmor!");
@@ -104,43 +104,45 @@ async function dohvatiZaposlene() {
                     alert("Datum pocetka odmora ne sme biti u proslosti u odnosu na period do");
                 }
 
-                zaposlen['odmor'].forEach(periodOdmora => {
-                    if(periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value){
-                        alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
-                    } else {
-                        ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - izracunajRazliku(periodOdmora.od, periodOdmora.do);
-                        console.log(ukupanBrojDanaOdmora);
-                    }
-                });
-
                 // Proveri validnost zahtevanog datuma u odnosu na logiku koja vazi za zaposlene
                 if (zaposlen.ugovor == "Neodredjeno") {
+                    // Ukoliko vec postoji zahtev za odmor
                     if (zaposlen.zahtevaniOdmor['od'] != "" || zaposlen.zahtevaniOdmor['do'] == "") {
                         event.preventDefault()
                         alert("Vec ste podneli zahtev za odmor. Molimo Vas imajte strpljenja.");
                     } else {
+                        // Ukoliko postoji drugi period odmora
+                        if (zaposlen['odmor']) {
+                            zaposlen['odmor'].forEach(periodOdmora => {
+                                if (periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value) {
+                                    alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
+                                } else {
+                                    ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - izracunajRazliku(periodOdmora.od, periodOdmora.do);
+                                }
+                            });
+                        };
                         if (mesecOd != 7) {
                             ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora);
                             proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
                         } else {
-                            ukupanBrojDanaOdmora;
                             proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
-                        }
-                    }
+                        };
+                    };
                 } else if (zaposlen.ugovor == "Odredjeno") {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
-                    console.log(ukupanBrojDanaOdmora);
                     proveriPeriodOdmora(brojOdabranihDana, Math.floor(ukupanBrojDanaOdmora), event);
-                }
+                };
             }
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
-                if (zaposlen.odmor) {
-                    if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
-                        event.preventDefault();
-                        alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
+                if (odabirImenaPrezimena.value != zaposlen.imePrezime) {
+                    if (zaposlen.odmor) {
+                        if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
+                            event.preventDefault();
+                            alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
+                        };
                     }
-                }
-            }
+                };
+            };
         });
     });
 }
@@ -152,10 +154,10 @@ function proveriPeriodOdmora(dani, maksDana, klik) {
     }
 }
 
-function izracunajRazliku(datum1, datum2){
+function izracunajRazliku(datum1, datum2) {
     let formatiraniDatum1 = datum1.split('-');
     let formatiraniDatum2 = datum2.split('-');
-    
+
     let godinaDatum1 = parseInt(formatiraniDatum1[0])
     let mesecDatum1 = parseInt(formatiraniDatum1[1]);
     let danDatum1 = parseInt(formatiraniDatum1[2]);

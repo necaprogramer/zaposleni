@@ -77,10 +77,12 @@
             "ugovor": "Neodredjeno",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
-            "odmor":{
+            "odmor":[
+                {
                 "od": "2023-04-05",
                 "do": "2023-04-25"
-            },
+                }
+            ],
             "zahtevaniOdmor":{
                 "od": "",
                 "do": ""
