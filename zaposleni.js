@@ -1,3 +1,7 @@
+// PROVERI ODMOR ZAPOSLENIH NA NEODREDJENO I ODREDJENO I ODUZMI UKOLIKO JE DODLJEN ODMOR TE DANE OD ODMORA
+// NAKON STO JE DODLJEN ODMOR PRETHODNI DANI ODMORA SU 0
+// VIKENDI NE SMEJU DA SE RACUNAJU KAO ODMOR
+
 const DANAS = new Date();
 
 const TRENUTNIDAN = DANAS.getDate();
@@ -86,6 +90,7 @@ async function dohvatiZaposlene() {
 
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
+                event.preventDefault();
 
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = 19;
@@ -100,13 +105,11 @@ async function dohvatiZaposlene() {
                 }
 
                 zaposlen['odmor'].forEach(periodOdmora => {
-                    let formatiraniPeriodOdmoraOd = periodOdmora['od'].split('-');
-                    let formatiraniPeriodOdmoraDo = periodOdmora['do'].split('-');
-                    console.log(formatiraniPeriodOdmoraDo - formatiraniPeriodOdmoraOd);
-                    if(periodOdmora.od == odabirVremenaOd && periodOdmora.do == odabirVremenaDo){
+                    if(periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value){
                         alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
-                    }else {
-                        ukupanBrojDanaOdmora -= izracunajRazliku(periodOdmora.od, periodOdmora.do);
+                    } else {
+                        ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - izracunajRazliku(periodOdmora.od, periodOdmora.do);
+                        console.log(ukupanBrojDanaOdmora);
                     }
                 });
 
@@ -126,7 +129,8 @@ async function dohvatiZaposlene() {
                     }
                 } else if (zaposlen.ugovor == "Odredjeno") {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
-                    proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora);
+                    console.log(ukupanBrojDanaOdmora);
+                    proveriPeriodOdmora(brojOdabranihDana, Math.floor(ukupanBrojDanaOdmora), event);
                 }
             }
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
