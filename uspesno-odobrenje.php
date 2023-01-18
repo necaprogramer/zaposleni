@@ -10,7 +10,7 @@ if (file_exists($filename)) {
             if ($radnik->imePrezime == $imePrezime) {
                 $periodOdmora = new stdClass;
                 $periodOdmora->od = $radnik->zahtevaniOdmor->od;
-                $periodOdmora->do = $radnik->zahtevaniOdmor->od;
+                $periodOdmora->do = $radnik->zahtevaniOdmor->do;
                 array_push($radnik->odmor, $periodOdmora);
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
