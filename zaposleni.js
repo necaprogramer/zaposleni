@@ -1,5 +1,5 @@
 // NAKON STO JE DODLJEN ODMOR PRETHODNI DANI ODMORA SU 0
-// VIKENDI NE SMEJU DA SE RACUNAJU KAO ODMOR
+// PROVERI DA LI SE VIKENDI RACUNAJU KAKO TREBA
 
 const DANAS = new Date();
 
@@ -91,6 +91,7 @@ async function dohvatiZaposlene() {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = 19;
+                let brojDanaVikenda = izracunajDaneVikenda(odabirVremenaOd.value, odabirVremenaDo.value);
                 event.preventDefault(); // Debug
                 // Proveri validnost zahtevanog datuma u odnosu na logiku datuma
                 if (odabirVremenaOd.value < DATUM || odabirVremenaDo.value < DATUM) {
@@ -121,17 +122,16 @@ async function dohvatiZaposlene() {
                             });
                         };
                         if (mesecOd != 7) {
-                            ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora);
+                            ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora) + brojDanaVikenda;
                             proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
                         } else {
-                            console.log(odabirVremenaOd.value);
-                            console.log('RADI!');
-                            izracunajDaneVikenda(odabirVremenaOd.value);
+                            ukupanBrojDanaOdmora += brojDanaVikenda;
                             proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
                         };
                     };
                 } else if (zaposlen.ugovor == "Odredjeno") {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
+                    ukupanBrojDanaOdmora += brojDanaVikenda;
                     proveriPeriodOdmora(brojOdabranihDana, Math.floor(ukupanBrojDanaOdmora), event);
                 };
             };
@@ -159,7 +159,17 @@ function proveriPeriodOdmora(dani, maksDana, klik) {
     }
 }
 
-function izracunajDaneVikenda(datumOd) {
-    let danOd = new Date(datumOd);
-    console.log(danOd.getDay());
+function izracunajDaneVikenda(datumOd, datumDo) {
+    let formatiraniDatumOd = new Date(datumOd);
+    let formatiraniDatumDo = new Date(datumDo);
+
+    let count = 0;
+    while(formatiraniDatumOd <= formatiraniDatumDo){
+        let trenutniDan = formatiraniDatumOd.getDay();
+        if(trenutniDan == 0 || trenutniDan == 6){
+            count++;
+        }
+        formatiraniDatumOd.setDate(formatiraniDatumOd.getDate() + 1);
+    }
+    return count;
 }
