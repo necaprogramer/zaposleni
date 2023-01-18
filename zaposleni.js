@@ -91,7 +91,7 @@ async function dohvatiZaposlene() {
 
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
-
+                event.preventDefault();
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = 19;
 
@@ -134,28 +134,19 @@ async function dohvatiZaposlene() {
                     ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
                     proveriPeriodOdmora(brojOdabranihDana, Math.floor(ukupanBrojDanaOdmora), event);
                 };
-            }
+            };
+
             if (ulogaZaposlenogZaZahtev == zaposlen.uloga) {
-                for (let timovi in data) {
-                    if (odabirTima.value == timovi && odabirImenaPrezimena.value != zaposlen.imePrezime) {
-                        if (zaposlen.odmor) {
-                            if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
-                                event.preventDefault();
-                                alert("Nazalost kolega iz istog tima je odbrao odmor u istom vremenskom periodu");
-                            };
-                        };
-                    };
-                };
-                /*
                 if (odabirImenaPrezimena.value != zaposlen.imePrezime) {
                     if (zaposlen.odmor) {
-                        if (zaposlen.odmor.od == odabirVremenaOd.value || zaposlen.odmor.do == odabirVremenaDo.value) {
-                            event.preventDefault();
-                            alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
-                        };
+                        zaposlen['odmor'].forEach(odmori => {
+                            if (odmori['od'] == odabirVremenaOd.value && odmori['do'] == odabirVremenaDo.value) {
+                                event.preventDefault();
+                                alert("Nazalost Vas kolega je odabrao odmor u istom vremenskom periodu");
+                            };
+                        })
                     }
                 };
-                */
             };
         });
     });
