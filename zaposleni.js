@@ -130,7 +130,7 @@ async function dohvatiZaposlene() {
                         };
                     };
                 } else if (zaposlen.ugovor == "Odredjeno") {
-                    ukupanBrojDanaOdmora = 20 / 12 * mesecOd;
+                    ukupanBrojDanaOdmora = 20 / 12 * mesecOd - 1;
                     ukupanBrojDanaOdmora += brojDanaVikenda;
                     proveriPeriodOdmora(brojOdabranihDana, Math.floor(ukupanBrojDanaOdmora), event);
                 };
