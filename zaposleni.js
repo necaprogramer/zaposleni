@@ -106,7 +106,7 @@ async function dohvatiZaposlene() {
                 if (zaposlen.ugovor == "Neodredjeno") {
                     // Ukoliko vec postoji zahtev za odmor
                     if (zaposlen.zahtevaniOdmor['od'] != "" && zaposlen.zahtevaniOdmor['do'] != "") {
-                        event.preventDefault()
+                        event.preventDefault();
                         alert("Vec ste podneli zahtev za odmor. Molimo Vas imajte strpljenja.");
                     } else {
                         // Ukoliko postoji drugi period odmora
@@ -122,8 +122,14 @@ async function dohvatiZaposlene() {
                             });
                         };
                         if (mesecOd != 7) {
-                            ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora) + brojDanaVikenda;
-                            proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                            let ukupanBrojDanaOdPocetkaUgovora = Math.round(Math.abs((Date.parse(zaposlen.datumUgovora) - Date.parse(DANAS))) / JEDANDAN);
+                            if(ukupanBrojDanaOdPocetkaUgovora >= 365){
+                                ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora) + brojDanaVikenda;
+                                proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                            }else{
+                                ukupanBrojDanaOdmora += brojDanaVikenda;
+                                proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
+                            }
                         } else {
                             ukupanBrojDanaOdmora += brojDanaVikenda;
                             proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
@@ -155,7 +161,7 @@ async function dohvatiZaposlene() {
 function proveriPeriodOdmora(dani, maksDana, klik) {
     if (dani > maksDana) {
         klik.preventDefault();
-        alert(`Imate ${maksDana} dana odmora!`);
+        alert(`Za zadati period imate maksimalno ${maksDana} dana, zajedno sa vikendima!`);
     }
 }
 
