@@ -13,6 +13,8 @@ if(file_exists($filename)){
                     $radnik->brojDanaOdmora = "20";
                 }else if($radnik->brojDanaOdmora == "0" && $trenutniMesec > 1){
                     $radnik->brojDanaOdmora == "20";
+                }else if($trenutniMesec == 7){
+                    $radnik->brojPreostalihDanaOdmora = "0";
                 }
             }
         }
