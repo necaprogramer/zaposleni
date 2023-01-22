@@ -90,9 +90,9 @@ async function dohvatiZaposlene() {
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
-                let ukupanBrojDanaOdmora = 19;
+                let ukupanBrojDanaOdmora = zaposlen.ukupanBrojDanaOdmora;
                 let brojDanaVikenda = izracunajDaneVikenda(odabirVremenaOd.value, odabirVremenaDo.value);
-                event.preventDefault(); // Debug
+                //event.preventDefault(); Debug
                 // Proveri validnost zahtevanog datuma u odnosu na logiku datuma
                 if (odabirVremenaOd.value < DATUM || odabirVremenaDo.value < DATUM) {
                     event.preventDefault();

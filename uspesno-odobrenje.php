@@ -13,11 +13,13 @@ if (file_exists($filename)) {
                 $periodOdmora->do = $radnik->zahtevaniOdmor->do;
                 array_push($radnik->odmor, $periodOdmora);
                 $brojDanaPeriodaOdmora = (strtotime($periodOdmora->do) - strtotime($periodOdmora->od)) / 60 / 60 / 24;
-                for ($i = 0; $i < $brojDanaPeriodaOdmora; $i++){
+                echo "</br> $brojDanaPeriodaOdmora \n";
+                for ($i = 1; $i < $brojDanaPeriodaOdmora; $i++){
                     if($i % 6 == 0 || $i % 7 == 0){
                         $brojDanaPeriodaOdmora++;
                     }
                 }
+                echo "</br> $radnik->brojDanaOdmora \n";
                 $preostaliDaniOdmora = ($radnik->brojPreostalihDanaOdmora + $radnik->brojDanaOdmora) - $brojDanaPeriodaOdmora;
                 $radnik->brojDanaOdmora = "$preostaliDaniOdmora";
                 $radnik->brojPreostalihDanaOdmora = "0";
