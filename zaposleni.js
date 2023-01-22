@@ -90,7 +90,7 @@ async function dohvatiZaposlene() {
         data[odabirTima.value].forEach(zaposlen => {
             if (odabirImenaPrezimena.value == zaposlen.imePrezime) {
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
-                let ukupanBrojDanaOdmora = zaposlen.ukupanBrojDanaOdmora;
+                let ukupanBrojDanaOdmora = zaposlen.brojDanaOdmora;
                 let brojDanaVikenda = izracunajDaneVikenda(odabirVremenaOd.value, odabirVremenaDo.value);
                 //event.preventDefault(); Debug
                 // Proveri validnost zahtevanog datuma u odnosu na logiku datuma
@@ -115,10 +115,10 @@ async function dohvatiZaposlene() {
                                 if (periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value) {
                                     event.preventDefault();
                                     alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
-                                } else {
+                                }/* else {
                                     let daniDodeljenogOdmora = (Math.round(Math.abs((Date.parse(periodOdmora['do']) - Date.parse(periodOdmora['od']))) / JEDANDAN));
                                     ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - daniDodeljenogOdmora;
-                                }
+                                }*/
                             });
                         };
                         if (mesecOd != 7) {
