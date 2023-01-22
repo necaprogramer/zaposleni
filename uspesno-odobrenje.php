@@ -8,20 +8,27 @@ if (file_exists($filename)) {
     foreach ($zaposleni as $tim => $radnici) {
         foreach ($radnici as $radnik) {
             if ($radnik->imePrezime == $imePrezime) {
+                // Kreiranje novog odmora u JSONu
                 $periodOdmora = new stdClass;
                 $periodOdmora->od = $radnik->zahtevaniOdmor->od;
                 $periodOdmora->do = $radnik->zahtevaniOdmor->do;
                 array_push($radnik->odmor, $periodOdmora);
-                $brojDanaPeriodaOdmora = (strtotime($periodOdmora->do) - strtotime($periodOdmora->od)) / 60 / 60 / 24;
-                echo "</br> $brojDanaPeriodaOdmora \n";
+                // Formatiranje u DateTime objektu radi iskoriscavanja DateTime::diff() funkcije
+                $formatiraniDatumOd = new DateTime($periodOdmora->od);
+                $formatiraniDatumDo = new DateTime($periodOdmora->do);
+                $interval = $formatiraniDatumOd->diff($formatiraniDatumDo);
+                $brojDanaPeriodaOdmora = $interval->format('%a') + 1; // + 1 jer se racuna i dan pocetka odmora
+                // Obracunavanje broja dana vikenda za zadati period
+                $brojDanaVikenda = 0;
                 for ($i = 1; $i < $brojDanaPeriodaOdmora; $i++){
                     if($i % 6 == 0 || $i % 7 == 0){
-                        $brojDanaPeriodaOdmora++;
+                        $brojDanaVikenda++;
                     }
                 }
-                echo "</br> $radnik->brojDanaOdmora \n";
-                $preostaliDaniOdmora = ($radnik->brojPreostalihDanaOdmora + $radnik->brojDanaOdmora) - $brojDanaPeriodaOdmora;
+                // Logika izracunavanja 
+                $preostaliDaniOdmora = ($radnik->brojPreostalihDanaOdmora + $radnik->brojDanaOdmora + $brojDanaVikenda) - $brojDanaPeriodaOdmora;
                 $radnik->brojDanaOdmora = "$preostaliDaniOdmora";
+                // Resetovanje podataka
                 $radnik->brojPreostalihDanaOdmora = "0";
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
