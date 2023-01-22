@@ -20,6 +20,7 @@ if (file_exists($filename)) {
                 }
                 $preostaliDaniOdmora = ($radnik->brojPreostalihDanaOdmora + $radnik->brojDanaOdmora) - $brojDanaPeriodaOdmora;
                 $radnik->brojDanaOdmora = "$preostaliDaniOdmora";
+                $radnik->brojPreostalihDanaOdmora = "0";
                 $radnik->zahtevaniOdmor->od = "";
                 $radnik->zahtevaniOdmor->do = "";
                 print "Uspesno ste odobrili zahtev " . $radnik->imePrezime . " u periodu od " . $periodOdmora->od . " do " . $periodOdmora->do;
