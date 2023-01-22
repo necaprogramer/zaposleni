@@ -9,5 +9,6 @@
         <div id="odmor-container">
             
         </div>
+        <?php require './zaposleni'; ?>
     </body>
 </html>

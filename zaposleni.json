@@ -4,6 +4,7 @@
             "imePrezime": "Pera Peric",
             "datumUgovora": "2022-05-26",
             "ugovor": "Odredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "frontEnd",
             "odmor":[
@@ -21,6 +22,7 @@
             "imePrezime": "Helena Mitanovic",
             "datumUgovora": "2022-06-20",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
             "odmor":[
@@ -34,6 +36,7 @@
             "imePrezime": "Misa Misic",
             "datumUgovora": "2021-06-21",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "marketing",
             "odmor":[
@@ -49,6 +52,7 @@
             "imePrezime": "Djuro Nacic",
             "datumUgovora": "2022-03-15",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "frontEnd",
             "odmor":[
@@ -62,6 +66,7 @@
             "imePrezime": "Mika Pekanovic",
             "datumUgovora": "2022-02-02",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
             "odmor":[
@@ -75,6 +80,7 @@
             "imePrezime": "Rodoslav Karic",
             "datumUgovora": "2022-10-26",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
             "odmor":[
@@ -92,6 +98,7 @@
             "imePrezime": "Sloba Ropcevic",
             "datumUgovora": "2022-10-22",
             "ugovor": "Odredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "marketing",
             "odmor":{
@@ -109,6 +116,7 @@
             "imePrezime": "Anastasija Hljebljanovic",
             "datumUgovora": "2022-01-26",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "2",
             "uloga": "frontEnd",
             "odmor":[
@@ -122,6 +130,7 @@
             "imePrezime": "Mica Jaksic",
             "datumUgovora": "2023-01-10",
             "ugovor": "Odredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "backEnd",
             "odmor":[
@@ -135,6 +144,7 @@
             "imePrezime": "Alkibijad Arnautovic",
             "datumUgovora": "2021-05-26",
             "ugovor": "Neodredjeno",
+            "brojDanaOdmora": "0",
             "brojPreostalihDanaOdmora": "0",
             "uloga": "marketing",
             "odmor":[
