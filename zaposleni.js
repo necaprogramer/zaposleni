@@ -92,7 +92,7 @@ async function dohvatiZaposlene() {
                 ulogaZaposlenogZaZahtev = zaposlen.uloga;
                 let ukupanBrojDanaOdmora = zaposlen.brojDanaOdmora;
                 let brojDanaVikenda = izracunajDaneVikenda(odabirVremenaOd.value, odabirVremenaDo.value);
-                //event.preventDefault(); Debug
+                //event.preventDefault(); //Debug
                 // Proveri validnost zahtevanog datuma u odnosu na logiku datuma
                 if (odabirVremenaOd.value < DATUM || odabirVremenaDo.value < DATUM) {
                     event.preventDefault();
@@ -115,10 +115,7 @@ async function dohvatiZaposlene() {
                                 if (periodOdmora.od == odabirVremenaOd.value && periodOdmora.do == odabirVremenaDo.value) {
                                     event.preventDefault();
                                     alert("Ne mozete zahtevati novi odmor u istom vremenskom periodu!");
-                                }/* else {
-                                    let daniDodeljenogOdmora = (Math.round(Math.abs((Date.parse(periodOdmora['do']) - Date.parse(periodOdmora['od']))) / JEDANDAN));
-                                    ukupanBrojDanaOdmora = ukupanBrojDanaOdmora - daniDodeljenogOdmora;
-                                }*/
+                                }
                             });
                         };
                         if (mesecOd != 7) {
@@ -126,8 +123,8 @@ async function dohvatiZaposlene() {
                             if(ukupanBrojDanaOdPocetkaUgovora >= 365){
                                 ukupanBrojDanaOdmora += parseInt(zaposlen.brojPreostalihDanaOdmora) + brojDanaVikenda;
                                 proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
-                            }else{
-                                ukupanBrojDanaOdmora += brojDanaVikenda;
+                            }else if(ukupanBrojDanaOdPocetkaUgovora < 365){
+                                ukupanBrojDanaOdmora = Number(ukupanBrojDanaOdmora) + Number(brojDanaVikenda);
                                 proveriPeriodOdmora(brojOdabranihDana, ukupanBrojDanaOdmora, event);
                             }
                         } else {
