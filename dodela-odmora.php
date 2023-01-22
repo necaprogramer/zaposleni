@@ -9,10 +9,8 @@ if(file_exists($filename)){
     foreach($zaposleni as $tim=>$radnici){
         foreach($radnici as $radnik){
             if($radnik->ugovor == "Neodredjeno"){
-                if($trenutniMesec == 1){
+                if($radnik->brojDanaOdmora == "0" && $trenutniMesec >= 1){
                     $radnik->brojDanaOdmora = "20";
-                }else if($radnik->brojDanaOdmora == "0" && $trenutniMesec > 1){
-                    $radnik->brojDanaOdmora == "20";
                 }else if($trenutniMesec == 7){
                     $radnik->brojPreostalihDanaOdmora = "0";
                 }
